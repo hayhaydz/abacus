@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { AppLoading } from 'expo';
 import Constants from 'expo-constants';
+import { Html5Entities } from 'html-entities';
 import {
   useFonts,
   PlayfairDisplay_400Regular,
@@ -18,17 +19,42 @@ const App = () => {
   });
 
   let [ wholeValue, setWholeValue ] = useState(0);
+  let [ romanValue, setRomanValue ] = useState("");
   let [ thousands, setThousands ] = useState([]);
   let [ hundreds, setHundreds ] = useState([]);
   let [ tens, setTens ] = useState([]);
   let [ ones, setOnes ] = useState([]);
+
+  const arabicArray = [5000, 4000, 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+  const romanArray = ['V&#773;', 'MV&#773', 'M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+  const entities = new Html5Entities();
+
+  useEffect(() => {
+    // https://www.freecodecamp.org/news/roman-numeral-converter-interactive-roman-numerals-chart/
+    let arabic = wholeValue;
+    let roman = '';
+
+    if(wholeValue == 0) {
+      setRomanValue('Nulla');
+    } else {
+      for(let i=0;i<arabicArray.length;i++) {
+        while(arabicArray[i] <= arabic) {
+          roman += romanArray[i];
+          arabic -= arabicArray[i];
+        }
+      }
+
+      setRomanValue(roman);
+    }
+  });
 
   if(fontsLoaded) {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <View style={styles.resultContainer}>
-            <Text style={styles.result}>{wholeValue}</Text>
+            {/* https://stackoverflow.com/questions/56558371/render-unicode-characters-in-react-native-using-variable/56560732 */}
+            <Text style={styles.result}>{entities.decode(romanValue)}</Text>
           </View>
           <View style={styles.unitContainer}>
             <UnitHandler title="thousands" unit={thousands} setUnit={setThousands} wholeValue={wholeValue} setWholeValue={setWholeValue}/>
@@ -70,7 +96,7 @@ const styles = StyleSheet.create({
   result: {
     fontFamily: 'PlayfairDisplay_700Bold',
     fontSize: 32,
-    letterSpacing: 30,
+    // letterSpacing: 30,
   },
   unitContainer: {
     flex: 1,
