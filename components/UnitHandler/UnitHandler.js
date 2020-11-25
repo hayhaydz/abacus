@@ -63,14 +63,14 @@ const UnitHandler = ({ title, unit, setUnit, wholeValue, setWholeValue }) => {
         </View>
       </View>
       <View style={styles.controlsContainer}>
+        <TouchableOpacity style={styles.control} onPress={minusValue}>
+          <Icon name="remove" type="material" color="#515151" size={32} />
+        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.control, styles.controlAdd]}
           onPress={plusValue}
         >
           <Icon name="add" type="material" color="#515151" size={32} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.control} onPress={minusValue}>
-          <Icon name="remove" type="material" color="#515151" size={32} />
         </TouchableOpacity>
       </View>
     </View>
