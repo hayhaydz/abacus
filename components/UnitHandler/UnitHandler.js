@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
-const UnitHandler = ({ title, unit, setUnit, wholeValue, setWholeValue }) => {
+const UnitHandler = ({ title, unit, setUnit, wholeValue, setWholeValue, colour }) => {
   const plusValue = () => {
     if (unit.length < 9) {
       let unitC = unit;
@@ -55,7 +55,7 @@ const UnitHandler = ({ title, unit, setUnit, wholeValue, setWholeValue }) => {
       <View style={styles.beadsContainer}>
         <View style={styles.beads}>
           {unit.map((value, index) => {
-            return <View style={styles.bead} key={index}></View>;
+            return <View style={[styles.bead, {backgroundColor: colour}]} key={index}></View>;
           })}
         </View>
         <View style={styles.beadsPole}>

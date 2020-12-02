@@ -26,10 +26,11 @@ const App = () => {
   let [ ones, setOnes ] = useState([]);
 
   const arabicArray = [5000, 4000, 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-  const romanArray = ['V&#773;', 'MV&#773', 'M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+  const romanArray = ['V\&#773;', 'MV\&#773', 'M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
   const entities = new Html5Entities();
 
   useEffect(() => {
+    console.log(wholeValue);
     // https://www.freecodecamp.org/news/roman-numeral-converter-interactive-roman-numerals-chart/
     let arabic = wholeValue;
     let roman = '';
@@ -46,6 +47,7 @@ const App = () => {
 
       setRomanValue(roman);
     }
+    console.log(romanValue);
   });
 
   if(fontsLoaded) {
@@ -57,10 +59,10 @@ const App = () => {
             <Text style={styles.result}>{entities.decode(romanValue)}</Text>
           </View>
           <View style={styles.unitContainer}>
-            <UnitHandler title="thousands" unit={thousands} setUnit={setThousands} wholeValue={wholeValue} setWholeValue={setWholeValue}/>
-            <UnitHandler title="hundreds" unit={hundreds} setUnit={setHundreds} wholeValue={wholeValue} setWholeValue={setWholeValue}/>
-            <UnitHandler title="tens" unit={tens} setUnit={setTens} wholeValue={wholeValue} setWholeValue={setWholeValue}/>
-            <UnitHandler title="ones" unit={ones} setUnit={setOnes} wholeValue={wholeValue} setWholeValue={setWholeValue}/>
+            <UnitHandler title="thousands" unit={thousands} setUnit={setThousands} wholeValue={wholeValue} setWholeValue={setWholeValue} colour="#DC1614"/>
+            <UnitHandler title="hundreds" unit={hundreds} setUnit={setHundreds} wholeValue={wholeValue} setWholeValue={setWholeValue} colour="#0C8120" />
+            <UnitHandler title="tens" unit={tens} setUnit={setTens} wholeValue={wholeValue} setWholeValue={setWholeValue} colour="#3C61ED" />
+            <UnitHandler title="ones" unit={ones} setUnit={setOnes} wholeValue={wholeValue} setWholeValue={setWholeValue} colour="#FF6B00" />
           </View>
           <StatusBar style="auto" />
         </ScrollView>
